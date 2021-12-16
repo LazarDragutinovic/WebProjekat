@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+body {
+    width: 100vw;
+}
+/*ovo je za nav*/
+nav {
+    height: 60px;
+    width: 100vw;
+    background-color: gold;
+    
+}
+.container {
+    margin-top: 20px;
+    width: 100vw;
+    height: 80vh;
+}
+
+.boardArea {
+    border: black 2px solid;
+    height: 90%;
+    aspect-ratio: 1;
+    position: relative;
+    transition: height 2s;
+}
+@media (max-width: 700px) {
+    .boardArea {
+        height: 60%;
+        transition: height 2s;
+    }
+}
+.board {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.row {
+    width: 100%;
+    height: 12.5%;
+    display: flex;
+}
+
+.square {
+    width: 12.5%;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+    
+}
+
+.shadowBoard {
+    position: absolute;
+    top: 0;
+    left: 0;   
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+}
+.shadowRow {
+    z-index: 0;
+    width: 100%;
+    height: 12.5%;
+    display: flex;
+}
+.shadowSquare {
+    width: 12.5%;
+    height: 100%;
+    z-index:  1;
+}

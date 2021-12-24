@@ -14,12 +14,20 @@ function makeTriggerChoseMove(shadowBoard,game,gameView,i,j,x,y) {
         let board = document.getElementById("board");
         boardArea.removeChild(board);
         GameView.render();
+        if(gameView.Game.end(gameView.Game.currentBoard)) {
+            alert("Cestitamo pobedili ste!");
+        }
+        else {
+            gameView.MakeMove();
+        }
     }
 }
 
 function makeTriggerMakeMoves(i,j,gameView) {
     return function() {
+        
         gameView.createShadowBoard(gameView.Game.currentBoard.potezi(i,j),i,j);
+        
     }
 
 }
@@ -112,5 +120,26 @@ export default class GameView {
             shadowBoard.appendChild(shadowRow);
         }
         boardArea.appendChild(shadowBoard);
+     }
+     //Ai potez
+     
+
+
+     MakeMove() {
+         this.Game.MakeChildren("black",this.Game.currentBoard);
+         this.Game.currentBoard.children.forEach(child=> {
+             this.Game.MakeChildren("white",child);
+         });
+         this.Game.currentBoard.onMove ="black";
+         this.Game.Evaluate(this.Game.currentBoard);
+         let bestBoard = this.Game.search(this.Game.currentBoard);
+         this.Game.currentBoard = bestBoard;
+         this.Game.currentBoard.children = [];
+         let staraTabla = document.getElementById("board");
+         let boardArea = document.getElementById("boardArea");
+         boardArea.removeChild(staraTabla);
+         this.render();
+         if(this.Game.end(this.Game.currentBoard))
+            alert("Pobedio je kompljuter");
      }
 }

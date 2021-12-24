@@ -4,9 +4,15 @@
 export default class Board {
 
     constructor(boardMatrix,parent = null) {
-        this.boardMatrix = boardMatrix;
+        this.boardMatrix = [];
+        for(let i =0; i < 8; i++) {
+            this.boardMatrix.push([]);
+            for(let j = 0; j < 8;j++){
+                this.boardMatrix[i].push(boardMatrix[i][j]);
+            }
+        }
         this.parent = parent;
-        this.children = null;
+        this.children = [];
     }
 
    

@@ -28,7 +28,7 @@ export default class Board {
     poteziPiunCrni(i,j) {
         let potezi = [];
         if (i+1 < 8 && this.boardMatrix[i+1][j] == 'E') potezi.push([i+1,j]);
-        if (i == 1 && this.boardMatrix[3][j] == 'E') potezi.push([3,j]);
+        if (i == 1 && this.boardMatrix[3][j] == 'E' && this.boardMatrix[2][j] == 'E') potezi.push([3,j]);
         if (i+1 < 8 && j+1 < 8 && this.boardMatrix[i+1][j+1] != 'E') { 
         if(!this.nasaFigura(i+1,j+1,'P')) potezi.push([i+1, j+1]);
         }
@@ -315,7 +315,7 @@ export default class Board {
     poteziPiunBeli(i,j) {
                 let potezi = [];
                 if(i-1 >= 0 && this.boardMatrix[i-1][j] == 'E') potezi.push([i-1,j]);
-                if(i == 6 && this.boardMatrix[4][j] == 'E') potezi.push([4,j]);
+                if(i == 6 && this.boardMatrix[4][j] == 'E' && this.boardMatrix[5][j] == 'E') potezi.push([4,j])
                 if(i-1 >= 0 && j+1 < 8 && this.boardMatrix[i-1][j+1] != 'E' && !this.nasaFigura(i-1,j+1,'p')) potezi.push([i-1,j+1]);
                 if(i-1 >= 0 && j-1>=0 && this.boardMatrix[i-1][j-1] != 'E' && !this.nasaFigura(i-1,j-1,'p')) potezi.push([i-1,j-1]);
                 return potezi;

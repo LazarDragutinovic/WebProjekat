@@ -56,6 +56,11 @@ nav {
     
 }
 
+.figura {
+    width: 100%;
+    height: auto;
+}
+
 .shadowBoard {
     position: absolute;
     top: 0;

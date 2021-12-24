@@ -13,14 +13,12 @@ export default class Game {
                                   ['p','p','p','p','p','p','p','p'],
                                   ['r','n','b','q','k','b','n','r']
                                 ];
-
+        this.difficulty = 1;
         this.currentBoard = new Board(defaultBoardMatrix);
 
     }
 
-    AIMove() {
-        //for later
-    }
+    
 
     end(board) {
         

@@ -42,7 +42,7 @@ export default class GameView {
 
     constructor() {
         this.Game = new Game();
-        
+        console.log(this.Game.difficulty);        
     }
 
     makeXY(x, y) {
@@ -51,6 +51,25 @@ export default class GameView {
         
         return [x,y];
     }
+
+    imgURL(slovo) {
+        let urls = {
+            p:"./figure/beliPiun.png",
+            r:"./figure/beliTop.png",
+            n:"./figure/beliKonj.png",
+            b:"./figure/beliLovac.png",
+            q:"./figure/belaKraljica.png",
+            k:"./figure/beliKralj.png",
+            P:"./figure/crniPiun.png",
+            R:"./figure/crniTop.png",
+            N:"./figure/crniKonj.png",
+            B:"./figure/crniLovac.png",
+            Q:"./figure/crnaKraljica.png",
+            K:"./figure/crniKralj.png"
+        }
+        return urls[slovo];
+    }
+
     render() {
         let boardArea = document.getElementById("boardArea");
         boardArea.style.margin = '0 auto';
@@ -66,11 +85,17 @@ export default class GameView {
             for(let j = 0 ; j < 8; j++) {
                 let square = document.createElement('div');
                 square.className = "square"
-                if(colorControl) square.style.backgroundColor = 'white';
+                if(colorControl) square.style.backgroundColor = '#898889';
                 else square.style.backgroundColor = 'brown';
                 square.style.fontSize = 40+'px';
                 
-                if(this.Game.currentBoard.boardMatrix[i][j] != 'E') square.innerHTML = this.Game.currentBoard.boardMatrix[i][j];
+                if(this.Game.currentBoard.boardMatrix[i][j] != 'E') {
+                    let figura = document.createElement('img');
+                    figura.src = this.imgURL(this.Game.currentBoard.boardMatrix[i][j]);
+                    //square.innerHTML = this.Game.currentBoard.boardMatrix[i][j];
+                    figura.className ="figura";
+                    square.appendChild(figura);
+                }
                 colorControl = !colorControl;
                 
                 square.onclick = makeTriggerMakeMoves(i,j,this);
@@ -123,22 +148,58 @@ export default class GameView {
      }
      //Ai potez
      
+    count(board) {
+        let sum = 0;
+        if(board.children.length == 0) {
+            return 1;
+        }
+        else {
+            for(let i =0; i < board.children.length;i++) {
+                sum += this.count(board.children[i]);
+            }
+            return sum;
+        }
+    }
 
+    makePlusDifficulty(disp,Game) {
+        return function() {
+            Game.difficulty = Game.difficulty + 1>3? 3: Game.difficulty+1;
+            disp.innerHTML = Game.difficulty;
+        }
+    }
+    makeMinusDiffculty(disp,Game) {
+        return function() {
+            Game.difficulty = Game.difficulty -1 < 1? 1: Game.difficulty -1;
+            disp.innerHTML = Game.difficulty;
+        }
+    }
 
      MakeMove() {
          this.Game.MakeChildren("black",this.Game.currentBoard);
-         this.Game.currentBoard.children.forEach(child=> {
-             this.Game.MakeChildren("white",child);
-         });
+         if(this.Game.difficulty > 1) {
+            this.Game.currentBoard.children.forEach(child=> {
+                this.Game.MakeChildren("white",child);
+                if(this.Game.difficulty > 2) {
+                    child.children.forEach(child1=>{
+                        this.Game.MakeChildren("black", child1);
+                 
+                 });
+                }
+            });
+        }
          this.Game.currentBoard.onMove ="black";
          this.Game.Evaluate(this.Game.currentBoard);
+         console.log(this.count(this.Game.currentBoard));
          let bestBoard = this.Game.search(this.Game.currentBoard);
          this.Game.currentBoard = bestBoard;
          this.Game.currentBoard.children = [];
          let staraTabla = document.getElementById("board");
          let boardArea = document.getElementById("boardArea");
-         boardArea.removeChild(staraTabla);
-         this.render();
+         setTimeout(()=>{
+            boardArea.removeChild(staraTabla);
+            this.render();
+         },500);
+         
          if(this.Game.end(this.Game.currentBoard))
             alert("Pobedio je kompljuter");
      }

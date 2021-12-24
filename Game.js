@@ -15,10 +15,19 @@ export default class Game {
                                 ];
         this.difficulty = 1;
         this.currentBoard = new Board(defaultBoardMatrix);
+        this.prevBoards = [];
 
     }
 
-    
+    Undo() {
+        let prevBoard = this.prevBoards.pop();
+        this.currentBoard = prevBoard;
+    }
+
+    pushBoard() {
+        let copy = new Board(this.currentBoard.boardMatrix);
+        this.prevBoards.push(copy);
+    }
 
     end(board) {
         

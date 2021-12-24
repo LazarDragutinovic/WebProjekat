@@ -8,7 +8,7 @@ function makeTriggerChoseMove(shadowBoard,game,gameView,i,j,x,y) {
         boardArea.removeChild(shadowBoard);
         let GamePtr = game;
         let GameView = gameView;
-                        
+        GamePtr.pushBoard();//Save current board for returning to it...                
         GamePtr.currentBoard.boardMatrix[i][j] = GamePtr.currentBoard.boardMatrix[x][y];
         GamePtr.currentBoard.boardMatrix[x][y] = "E";
         let board = document.getElementById("board");
@@ -105,6 +105,12 @@ export default class GameView {
             colorControl = !colorControl;
         }
         boardArea.appendChild(board);
+    }
+    rerender() {
+        let board = document.getElementById("board");
+        let boardArea = document.getElementById("boardArea");
+        boardArea.removeChild(board);
+        this.render();
     }
     createShadowBoard(potezi, x,y) {
         if(!this.Game.currentBoard.nasaFigura(x,y,'p')) return;

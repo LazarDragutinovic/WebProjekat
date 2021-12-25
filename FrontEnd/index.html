@@ -7,13 +7,21 @@
     </head>
     <body>
         <nav>
-        <button id="plus">+Difficulty</button>
-        <button id="minus">-Difficulty</button>
-        <p id="disp">1</p>
-        <button id="undoBtn">Undo</button>
         </nav>
         <div class="container">
             <div id="boardArea"></div>
+            <br>
+            <div class="controls">
+                <div class="buttons">
+                    <div class="buttonsLeft">
+                        <button class="gameControl gameControlLeft" id="plus">+Difficulty</button>
+                        <button class="gameControl gameControlLeft" id="minus">-Difficulty</button>
+                        <button class="gameControl gameControlLeft" id="undoBtn">Undo</button>
+                    </div>
+                    <button class="gameControl" id="hintBtn">Hint</button>
+                </div>
+                <p id="disp">1</p>
+            </div>
         </div>
         <script src="main.js" type="module"></script>
     </body>

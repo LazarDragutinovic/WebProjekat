@@ -104,6 +104,7 @@ export default class Game {
                         let moves = board.potezi(i,j);
                         moves.forEach(move => {
                             let newboard = new Board(board.boardMatrix);
+                            newboard.buffInfo = [move[0],move[1],i,j];
                             newboard.onMove = "white";
                             newboard.boardMatrix[move[0]][move[1]] = newboard.boardMatrix[i][j];
                             newboard.boardMatrix[i][j] = "E";
@@ -122,6 +123,7 @@ export default class Game {
                         let moves = board.potezi(i,j);
                         moves.forEach(move=>{
                             let newboard = new Board(board.boardMatrix);
+                            newboard.buffInfo = [move[0],move[1],i,j];
                             newboard.onMove = "black";
                             newboard.boardMatrix[move[0]][move[1]] = newboard.boardMatrix[i][j];
                             newboard.boardMatrix[i][j] = "E";

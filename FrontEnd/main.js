@@ -18,4 +18,6 @@ undoBtn.onclick = () => {
         testGameView.rerender();
     }
 }
+let hintBtn = document.getElementById("hintBtn");
+hintBtn.onclick = testGameView.makeHintGameView(testGameView);
 testGameView.render();

@@ -42,7 +42,8 @@ export default class GameView {
 
     constructor() {
         this.Game = new Game();
-        console.log(this.Game.difficulty);        
+        console.log(this.Game.difficulty);
+        this.hintBuffer = [];        
     }
 
     makeXY(x, y) {
@@ -69,7 +70,24 @@ export default class GameView {
         }
         return urls[slovo];
     }
-
+    makeHintGameView(gv) {
+        return function() {
+            let copy = new Board(gv.Game.currentBoard.boardMatrix);
+            gv.Game.MakeChildren("white",copy);
+            copy.children.forEach(child=>{
+                gv.Game.MakeChildren("black",child);
+                child.children.forEach(child1=>{
+                    gv.Game.MakeChildren("white",child1);
+                })
+            })
+            copy.onMove = "white";
+            gv.Game.Evaluate(copy);
+            let bestBoard = gv.Game.search(copy);
+            gv.hintBuffer = bestBoard.buffInfo;
+            gv.rerender();
+            gv.hintBuffer = [];
+        }
+    }
     render() {
         let boardArea = document.getElementById("boardArea");
         boardArea.style.margin = '0 auto';
@@ -84,11 +102,19 @@ export default class GameView {
             
             for(let j = 0 ; j < 8; j++) {
                 let square = document.createElement('div');
-                square.className = "square"
+                square.className = "square";
                 if(colorControl) square.style.backgroundColor = '#898889';
                 else square.style.backgroundColor = 'brown';
-                square.style.fontSize = 40+'px';
+                if(this.hintBuffer.length != 0) {
+                    if(this.hintBuffer[0] == i && this.hintBuffer[1] ==j)
+                        square.style.backgroundColor = "aqua";
+                    if(this.hintBuffer[2] == i && this.hintBuffer[3] == j)
+                        square.style.backgroundColor = "aqua";
+                }
                 
+                
+            
+        
                 if(this.Game.currentBoard.boardMatrix[i][j] != 'E') {
                     let figura = document.createElement('img');
                     figura.src = this.imgURL(this.Game.currentBoard.boardMatrix[i][j]);

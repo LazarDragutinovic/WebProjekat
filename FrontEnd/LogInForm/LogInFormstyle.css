@@ -1,0 +1,81 @@
+#loginform {
+    width: 90%;
+    height: 55vh;
+    max-width: 500px;
+    background-color: rgb(179, 177, 177);
+    box-shadow: 2px 2px 10px black;    
+    border-radius: 40px;
+
+}
+
+
+
+#loginform .title {
+    height: 18%;
+    text-align: center;
+    padding-top: 20px;
+}
+
+#loginform .inputarea {
+    height: 33%;
+    display: flex;
+
+}
+.inputarea .polja {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.inputarea .inputs {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+
+.loginButton {
+    border-radius: 10px;
+    width: 160px;
+    height: 40px;
+    margin-top: 15px;
+    margin-left: 40px;
+    color: white;
+    font-size: 1.5em;
+    font-weight: 900;
+    background-color: rgb(1, 95, 158);
+}
+
+.polja .polje {
+    font-weight: 800;
+    font-size: 1.5em;
+}
+
+.inputs .inp {
+    width: 80%;
+    margin-right: 30px;
+    height: 25px;
+    border: none;
+    box-shadow: 2px 2px 10px rgb(44, 43, 43);
+}
+
+#loginform .buttonArea {
+    height: 15%;
+}
+
+.makeAccountArea {
+    color:rgb(1, 95, 158);
+    height: 34%;
+    padding-top: 20px;
+    text-align: center;
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+.makeAccountArea span {
+    text-decoration: underline;
+}

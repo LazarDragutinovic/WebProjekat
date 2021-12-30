@@ -1,23 +1,14 @@
-import Board from './Board.js';
-import GameView from './GameView.js';
+import Nav from "./Navbar/Nav.js"
+import Footer from "./Footer/Footer.js"
+import Container from "./Container/Container.js"
+import LogInForm from "./LogInForm/LogInForm.js"
+import makeAccountForm from "./MakeAccountForm/MakeAccountForm.js";
+let root = document.getElementById("root");
 
-
-
-
-
-let testGameView = new GameView();
-let btnPlus = document.getElementById("plus");
-let btnMinus = document.getElementById("minus");
-let disp = document.getElementById("disp");
-let undoBtn = document.getElementById("undoBtn");
-btnPlus.onclick = testGameView.makePlusDifficulty(disp,testGameView.Game);
-btnMinus.onclick = testGameView.makeMinusDiffculty(disp,testGameView.Game);
-undoBtn.onclick = () => {
-    if(testGameView.Game.prevBoards.length != 0) {
-        testGameView.Game.Undo();
-        testGameView.rerender();
-    }
-}
-let hintBtn = document.getElementById("hintBtn");
-hintBtn.onclick = testGameView.makeHintGameView(testGameView);
-testGameView.render();
+let nav = new Nav();
+let footer = new Footer();
+let container = new Container();
+container.element = new makeAccountForm();
+root.appendChild(nav.render());
+root.appendChild(footer.render());
+root.appendChild(container.render());

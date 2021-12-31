@@ -1,0 +1,49 @@
+
+.dashboard {
+    height: 80vh;
+    width: 80%;
+    max-width: 1400px;
+    border: 2px purple solid;
+    display: flex;
+    justify-content: space-around;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+}
+
+.playerInfo {
+    height: 80%;
+    width: 600px;
+    background-color: rgb(194, 194, 194);
+    border-radius: 40px;
+}
+.bestGames {
+    width: 500px;
+    height: 30%;
+    max-height: 80%;
+    background-color: rgb(194, 194, 194);
+    border-radius: 40px;
+}
+@media (max-width: 1500px) {
+    .playerInfo {
+        width: 500px;
+    }
+    .bestGamesc{
+        width: 450px;
+    }
+}
+@media (max-width: 1300px) {
+    .dashboard {
+        flex-direction: column;
+        align-items: center;
+    }
+    .playerInfo {
+        max-width: 500px;
+        width: 100%;
+    }
+    
+    .bestGames {
+        max-width: 500px;
+        margin-top: 10px;
+        width: 100%;
+    }
+}

@@ -8,17 +8,8 @@ body {
     width: 100vw;
 }
 /*ovo je za nav*/
-nav {
-    height: 60px;
-    width: 100vw;
-    background-color: gold;
-    
-}
-.container {
-    margin-top: 20px;
-    width: 100vw;
-    height: 80vh;
-}
+
+
 
 .boardArea {
     border: black 2px solid;

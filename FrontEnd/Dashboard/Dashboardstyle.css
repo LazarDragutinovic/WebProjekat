@@ -3,7 +3,6 @@
     height: 80vh;
     width: 80%;
     max-width: 1400px;
-    border: 2px purple solid;
     display: flex;
     justify-content: space-around;
     padding-top: 5vh;
@@ -15,13 +14,19 @@
     width: 600px;
     background-color: rgb(194, 194, 194);
     border-radius: 40px;
+    box-shadow: 2px 2px 10px black;
 }
 .bestGames {
     width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
     height: 30%;
     max-height: 80%;
     background-color: rgb(194, 194, 194);
     border-radius: 40px;
+    box-shadow: 2px 2px 10px black;
 }
 @media (max-width: 1500px) {
     .playerInfo {
@@ -46,4 +51,55 @@
         margin-top: 10px;
         width: 100%;
     }
+}
+
+.header {
+    height: 19%;
+    display: flex;
+    
+    align-items: center;
+}
+.avatarArea {
+    width: 25%;
+}
+.userName {
+
+    text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    font-size: 1.5em;
+    color: rgb(0, 101, 145);
+
+}
+.avatar {
+    margin-left: 40px;
+    height: 70px;
+    width: 70px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.dataField {
+    display: flex;
+    flex-direction: column;
+    height: 81%;
+    padding-top: 20px;
+    padding-left: 40px;
+}
+.oneData {
+    color:rgb(0, 101, 145);
+    flex-grow: 1;  
+    font-size: 2em;
+    font-weight: 900;     
+}
+
+.bestGamesTitle {
+    color:rgb(0, 101, 145);
+
+}
+
+.bestGameData {
+    color:rgb(0, 101, 145);
+    font-size: 1.5em;
+    font-weight: bold;
 }

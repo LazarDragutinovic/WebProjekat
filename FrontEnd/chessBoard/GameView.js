@@ -55,18 +55,18 @@ export default class GameView {
 
     imgURL(slovo) {
         let urls = {
-            p:"./figure/beliPiun.png",
-            r:"./figure/beliTop.png",
-            n:"./figure/beliKonj.png",
-            b:"./figure/beliLovac.png",
-            q:"./figure/belaKraljica.png",
-            k:"./figure/beliKralj.png",
-            P:"./figure/crniPiun.png",
-            R:"./figure/crniTop.png",
-            N:"./figure/crniKonj.png",
-            B:"./figure/crniLovac.png",
-            Q:"./figure/crnaKraljica.png",
-            K:"./figure/crniKralj.png"
+            p:"./chessBoard/figure/beliPiun.png",
+            r:"./chessBoard/figure/beliTop.png",
+            n:"./chessBoard/figure/beliKonj.png",
+            b:"./chessBoard/figure/beliLovac.png",
+            q:"./chessBoard/figure/belaKraljica.png",
+            k:"./chessBoard/figure/beliKralj.png",
+            P:"./chessBoard/figure/crniPiun.png",
+            R:"./chessBoard/figure/crniTop.png",
+            N:"./chessBoard/figure/crniKonj.png",
+            B:"./chessBoard/figure/crniLovac.png",
+            Q:"./chessBoard/figure/crnaKraljica.png",
+            K:"./chessBoard/figure/crniKralj.png"
         }
         return urls[slovo];
     }
@@ -89,7 +89,8 @@ export default class GameView {
         }
     }
     render() {
-        let boardArea = document.getElementById("boardArea");
+        let boardArea = document.createElement("div");
+        boardArea.id = "boardArea";
         boardArea.style.margin = '0 auto';
         boardArea.className = "boardArea";
         let board = document.createElement('div');
@@ -131,6 +132,7 @@ export default class GameView {
             colorControl = !colorControl;
         }
         boardArea.appendChild(board);
+        return boardArea;
     }
     rerender() {
         let board = document.getElementById("board");
@@ -225,8 +227,10 @@ export default class GameView {
          let bestBoard = this.Game.search(this.Game.currentBoard);
          this.Game.currentBoard = bestBoard;
          this.Game.currentBoard.children = [];
-         let staraTabla = document.getElementById("board");
+         
          let boardArea = document.getElementById("boardArea");
+         let staraTabla = document.getElementById("board");
+         //console.log(staraTabla);
          setTimeout(()=>{
             boardArea.removeChild(staraTabla);
             this.render();

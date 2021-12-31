@@ -4,10 +4,11 @@ footer {
     background-color: black;
     width: 100vw;
     position: absolute;
-    height: 10vh;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
+    bottom: 0;
     
 }
 

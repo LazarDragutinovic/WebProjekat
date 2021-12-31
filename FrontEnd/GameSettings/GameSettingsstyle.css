@@ -1,0 +1,71 @@
+.settingsForm {
+    height: 60vh;
+    width: 90%;
+    max-width: 600px;
+    background-color: rgb(185, 184, 184);
+    border-radius: 40px;
+    box-shadow: 2px 2px 10px black;
+}
+
+.settingsTitle {
+    height: 13%;
+    text-align: center;
+    padding-top: 15px;
+    color: rgb(0,101,145);
+    font-weight: bolder;
+    font-size: 2em;
+}
+
+.settingsForm .options {
+    height: 70%;
+    display: flex;
+}
+.settingsForm .radioArea {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    width: 25%;
+}
+.radioArea .sellectSetting {
+    transform: scale(2);    
+}
+.settingsForm .optionText {
+    display: flex;
+    width: 75%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.settingsForm .options {
+    font-size: xx-large;
+    font-weight: 900;
+    color:rgb(0,101,145);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.settingsControl {
+    display: flex;
+    justify-content: space-evenly;
+    height: 17%;
+    align-items: center;
+}
+
+.settingsControl button {
+    display: block;
+    height: 60px;
+    width: 150px;
+    color:white;
+    background-color: rgb(0,101,145);
+    font-size: 1.5em;
+    font-weight: 900;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px black;
+    outline: none;
+    border: 0;
+    text-shadow: 2px 2px 10px black;
+}
+.settingsControl .abort {
+    background-color: rgb(224, 47, 47);
+}

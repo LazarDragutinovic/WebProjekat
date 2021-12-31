@@ -1,7 +1,7 @@
 nav {
     width: 100vw;
     background-color: black;
-    height: 10vh;
+    height: 100px;
     display: flex;
     align-items: center;
     box-shadow:2px 5px 10px black;

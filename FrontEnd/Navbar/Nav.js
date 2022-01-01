@@ -3,7 +3,9 @@
 
 export default class Nav {
 
-
+    constructor(dugmici) {
+        this.dugmici = dugmici;
+    }
 
     render() {
         let nav = document.createElement('nav');
@@ -23,6 +25,17 @@ export default class Nav {
         okvirZaLogo.appendChild(logo);
         okvirZaLogo.appendChild(sublogotext);
         nav.appendChild(okvir);
+
+        let okvirZaKontrole = document.createElement("div");
+        this.dugmici.forEach(dugme => {
+           okvirZaKontrole.appendChild(dugme.render()); 
+        });
+
+        okvir.appendChild(okvirZaKontrole);
+        
+        okvirZaKontrole.className = "okvirZaKontrole";
+
+
         return nav;
     }
 }

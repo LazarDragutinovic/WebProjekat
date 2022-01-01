@@ -13,7 +13,7 @@ export default class Game {
                                   ['p','p','p','p','p','p','p','p'],
                                   ['r','n','b','q','k','b','n','r']
                                 ];
-        this.difficulty = 1;
+        this.difficulty = 4;
         this.currentBoard = new Board(defaultBoardMatrix);
         this.prevBoards = [];
 

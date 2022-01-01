@@ -13,7 +13,7 @@ body {
 
 .boardArea {
     border: black 2px solid;
-    width: 40%;
+    width: 37%;
     aspect-ratio: 1;
     position: relative;
     transition: height 2s;
@@ -39,11 +39,10 @@ body {
     height: 100%;
     text-align: center;
     align-content: center;
-    
 }
 
 .figura {
-    width: 100%;
+    width: 90%;
     height: auto;
 }
 

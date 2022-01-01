@@ -10,7 +10,9 @@ nav {
     width: 90%;
     max-width: 1600px;
     margin: 0 auto;
-    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .logo {
     color: gray;

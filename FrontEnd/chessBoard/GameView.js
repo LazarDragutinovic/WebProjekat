@@ -11,9 +11,9 @@ function makeTriggerChoseMove(shadowBoard,game,gameView,i,j,x,y) {
         GamePtr.pushBoard();//Save current board for returning to it...                
         GamePtr.currentBoard.boardMatrix[i][j] = GamePtr.currentBoard.boardMatrix[x][y];
         GamePtr.currentBoard.boardMatrix[x][y] = "E";
-        let board = document.getElementById("board");
-        boardArea.removeChild(board);
-        GameView.render();
+        //let board = document.getElementById("board");
+        //boardArea.removeChild(board);
+        GameView.rerender();
         if(gameView.Game.end(gameView.Game.currentBoard)) {
             alert("Cestitamo pobedili ste!");
         }
@@ -32,11 +32,6 @@ function makeTriggerMakeMoves(i,j,gameView) {
 
 }
 
-function makeReales() {
-    return function() {
-
-    }
-}
 
 export default class GameView {
 
@@ -93,7 +88,8 @@ export default class GameView {
         boardArea.id = "boardArea";
         boardArea.style.margin = '0 auto';
         boardArea.className = "boardArea";
-        let board = document.createElement('div');
+        this.drawBoard(boardArea);
+        /*let board = document.createElement('div');
         board.id = "board";
         board.className = "board";
         let colorControl = true;
@@ -131,14 +127,56 @@ export default class GameView {
             board.appendChild(row);
             colorControl = !colorControl;
         }
-        boardArea.appendChild(board);
+        boardArea.appendChild(board);*/
         return boardArea;
+    }
+    drawBoard(boardArea) {
+        
+        let board = document.createElement('div');
+        board.id = "board";
+        board.className = "board";
+        let colorControl = true;
+        for(let i = 0; i < 8; i++) {
+            let row = document.createElement('div');
+            row.className = "row";
+            
+            for(let j = 0 ; j < 8; j++) {
+                let square = document.createElement('div');
+                square.className = "square";
+                if(colorControl) square.style.backgroundColor = 'rgb(98,95,95)';
+                else square.style.backgroundColor = 'brown';
+                if(this.hintBuffer.length != 0) {
+                    if(this.hintBuffer[0] == i && this.hintBuffer[1] ==j)
+                        square.style.backgroundColor = "aqua";
+                    if(this.hintBuffer[2] == i && this.hintBuffer[3] == j)
+                        square.style.backgroundColor = "aqua";
+                }
+                
+                
+            
+        
+                if(this.Game.currentBoard.boardMatrix[i][j] != 'E') {
+                    let figura = document.createElement('img');
+                    figura.src = this.imgURL(this.Game.currentBoard.boardMatrix[i][j]);
+                    //square.innerHTML = this.Game.currentBoard.boardMatrix[i][j];
+                    figura.className ="figura";
+                    square.appendChild(figura);
+                }
+                colorControl = !colorControl;
+                
+                square.onclick = makeTriggerMakeMoves(i,j,this);
+                row.appendChild(square);
+            }
+            board.appendChild(row);
+            colorControl = !colorControl;
+        }
+        boardArea.appendChild(board); 
     }
     rerender() {
         let board = document.getElementById("board");
         let boardArea = document.getElementById("boardArea");
         boardArea.removeChild(board);
-        this.render();
+        this.drawBoard(boardArea);
     }
     createShadowBoard(potezi, x,y) {
         if(!this.Game.currentBoard.nasaFigura(x,y,'p')) return;
@@ -230,10 +268,8 @@ export default class GameView {
          
          let boardArea = document.getElementById("boardArea");
          let staraTabla = document.getElementById("board");
-         //console.log(staraTabla);
          setTimeout(()=>{
-            boardArea.removeChild(staraTabla);
-            this.render();
+            this.rerender(boardArea);
          },500);
          
          if(this.Game.end(this.Game.currentBoard))

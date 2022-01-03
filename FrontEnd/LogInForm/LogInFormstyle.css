@@ -66,7 +66,9 @@
 #loginform .buttonArea {
     height: 15%;
 }
-
+#loginform .inp {
+    font-size: large;
+}
 .makeAccountArea {
     color:rgb(1, 95, 158);
     height: 34%;

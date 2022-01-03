@@ -7,7 +7,7 @@ export default class Nav {
         this.dugmici = dugmici;
     }
 
-    render() {
+    render(root) {
         let nav = document.createElement('nav');
         
         //ovde dorada u zavisnosti od toga u kom stanju se nalazi
@@ -28,7 +28,7 @@ export default class Nav {
 
         let okvirZaKontrole = document.createElement("div");
         this.dugmici.forEach(dugme => {
-           okvirZaKontrole.appendChild(dugme.render()); 
+           dugme.render(okvirZaKontrole); 
         });
 
         okvir.appendChild(okvirZaKontrole);
@@ -36,6 +36,6 @@ export default class Nav {
         okvirZaKontrole.className = "okvirZaKontrole";
 
 
-        return nav;
+        root.appendChild(nav);
     }
 }

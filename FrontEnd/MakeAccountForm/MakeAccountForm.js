@@ -4,6 +4,9 @@
 
 export default class makeAccountForm {
 
+    constructor(parrent) {
+        this.parrent = parrent;
+    }
     render() {
         let form = document.createElement("form");
         form.className = "makeAccountForm";
@@ -65,6 +68,17 @@ export default class makeAccountForm {
         buttonFinish.className = "Finish";
         buttonFinish.textContent = "_FINISH";
         buttonCancel.textContent = "_CANCEL";
+        let ptr = this.parrent;
+        buttonFinish.onclick = (e)=> {
+            e.preventDefault();
+            ptr.state = 2;
+            ptr.rerender();
+        }
+        buttonCancel.onclick = (e)=>{
+            e.preventDefault();
+            ptr.state = 1;
+            ptr.rerender();
+        }
         buttonCancel.className = "Cancel";
         formControls.appendChild(buttonFinish);
         formControls.appendChild(buttonCancel);

@@ -13,8 +13,8 @@ export default class Container {
         this.area.removeChild(this.element);
         this.element = newElement;
     }
-    render() {
+    render(root) {
         this.area.appendChild(this.element.render());
-        return this.area;
+        root.appendChild(this.area);
     }
 }

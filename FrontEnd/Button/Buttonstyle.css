@@ -1,6 +1,6 @@
 .skbutton {
     height: 60px;
-    width: 150px;
+    min-width: 150px;
     transform: skew(-20deg);
     margin-left: 10px;
     font-size: 2em;

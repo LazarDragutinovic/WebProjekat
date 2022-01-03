@@ -2,8 +2,8 @@
 
 export default class LogInForm {
 
-    constructor() {
-
+    constructor(parrent) {
+        this.parrent = parrent;
     }
 
     render() {
@@ -43,22 +43,22 @@ export default class LogInForm {
         buttonArea.className = "buttonArea";
         
         let loginButton = document.createElement("button");
+        let ptr = this.parrent;
         loginButton.onclick = (e)=> {
             e.preventDefault();
+            ptr.state = 2;
+            ptr.rerender();
         }
         loginButton.textContent = "_LOGIN";
         loginButton.className = "loginButton";
+
         buttonArea.appendChild(loginButton);
         form.appendChild(buttonArea);
 
         let makeAccountArea = document.createElement("p");
         makeAccountArea.className = "makeAccountArea";
         makeAccountArea.innerHTML = "You don't have account.Make one now!!!<br><span>Click here!!!</span>";
-        form.appendChild(makeAccountArea);
-        /*form.innerHTML = "<h3>LOG IN</h3> <br><div><span>Username</span> <input type=\"text\" name=\"Username\"></div>";
-        form.innerHTML += "<br><div><span>Password  </span> <input type=\"password\" name=\"password\"></div>";
-        form.innerHTML += "<br><br><div><button type=\"submit\">Login</button></div>";*/
-        
+        form.appendChild(makeAccountArea);       
         
         return form;
     }

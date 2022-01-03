@@ -10,7 +10,7 @@ export default class Button {
         this.callback = callback;
     }
 
-    render() {
+    render(okvirZaKontrole) {
         let button = document.createElement("button");
 
         button.innerHTML = this.text;
@@ -20,6 +20,6 @@ export default class Button {
         button.onclick = this.callback;
 
 
-        return button;
+        okvirZaKontrole.appendChild(button);
     }
 }

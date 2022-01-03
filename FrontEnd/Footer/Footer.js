@@ -4,7 +4,7 @@ export default class Footer {
 
 
 
-    render() {
+    render(root) {
         let footer = document.createElement("footer");
 
         let copyright = document.createElement("p");
@@ -12,6 +12,6 @@ export default class Footer {
         footer.appendChild(copyright);
         copyright.className = "copyright";
 
-        return footer;
+        root.appendChild(footer);
     }
 }

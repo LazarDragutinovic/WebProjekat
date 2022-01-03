@@ -3,7 +3,9 @@
 export default class GameSettings {
 
 
-
+    constructor(parrent) {
+        this.parrent = parrent;
+    }
     render() {
         let form = document.createElement("form");
         form.className ="settingsForm";
@@ -52,6 +54,17 @@ export default class GameSettings {
         let abort = document.createElement("button");
         abort.innerHTML = "_ABORT";
         abort.className = "abort";
+        let ptr = this.parrent;
+        letsgo.onclick = (e)=>{
+            e.preventDefault();
+            ptr.state = 5;
+            ptr.rerender();
+        }
+        abort.onclick = (e)=>{
+            e.preventDefault();
+            ptr.state = 2;
+            ptr.rerender();
+        }
         settingsControl.appendChild(letsgo);
         settingsControl.appendChild(abort);
 

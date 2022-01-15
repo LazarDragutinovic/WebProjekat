@@ -18,27 +18,17 @@ namespace BackEnd.Controllers
         public UserController(ChessContext Context) {
             context = Context;
         }
-        [HttpGet]
-        [Route("SkiniKorisnika/{username}")]
-        public ActionResult PreuzmiUsername(string username) {
-            try {
-                var user = context.Users.Include(p=>p.Games).Where(u=> u.Username == username).FirstOrDefault();
-                return Ok(user);
-            }
-            catch(Exception e) {
-                return Ok(e.Message);
-            }
-        }
+       
         
         [HttpGet]
         [Route("Login/{username}/{password}")]
         public ActionResult Login(string username, string password) {
             var dbuser = context.Users.Where(u=> u.Username == username).FirstOrDefault();
             if (dbuser == null) {
-                return BadRequest("Nema tog korisnika");
+                return BadRequest(new {Message = "Pogresan Username."});
             }
             else if (dbuser.Password != password) {
-                return BadRequest("Neispravna lozinka");
+                return BadRequest(new {Message = "Pogresna Sifra."});
             }
             return Ok(dbuser);
         }
@@ -47,10 +37,10 @@ namespace BackEnd.Controllers
         [Route("AddUser")]
         public async Task<ActionResult> Dodaj([FromBody] User user) {
             if(user.Username.Length < 10) {
-                return BadRequest("Los Username");
+                return BadRequest();
             }
             if(!char.IsLetter(user.Username.ToCharArray()[0])) {
-                return BadRequest("Los Username");
+                return BadRequest();
             }
             if(user.Password.Length < 8) return BadRequest("Losa Lozinka");
             

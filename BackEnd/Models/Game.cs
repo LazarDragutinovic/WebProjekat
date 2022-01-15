@@ -1,6 +1,7 @@
 
 
 
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -17,6 +18,8 @@ namespace Models
         public int difficulty { get; set; }
         [MaxLength(60)]
         [Required]
+
+        public int Moves { get; set; }
         public string Name { get; set; }
         [MaxLength(64)]
         public string Board { get; set; }

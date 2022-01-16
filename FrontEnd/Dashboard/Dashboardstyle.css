@@ -8,7 +8,32 @@
     padding-top: 2.5vh;
     padding-bottom: 5vh;
 }
-
+.okvirBGAC {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    justify-content: space-between;
+    
+}
+.achivments {
+    background-color: rgb(194, 194, 194);
+    border-radius: 20px;
+    height: 45%;
+    width: 100%;
+    box-shadow: 2px 2px 10px black;
+}
+.achivmentBody td {
+    text-align: center;
+    color:rgb(0, 101, 145);
+    font-weight: 900;
+}
+.achivmentBody td .rest {
+    width: 20%;
+}
+.achivmentBody td .achivmentText {
+    width: 35%;
+}
 .playerInfo {
     height: 80%;
     width: 600px;
@@ -17,23 +42,32 @@
     box-shadow: 2px 2px 10px black;
 }
 .bestGames {
-    width: 500px;
+    width: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    height: 30%;
-    max-height: 80%;
+    height: 45%;
     background-color: rgb(194, 194, 194);
     border-radius: 40px;
     box-shadow: 2px 2px 10px black;
 }
+@media (max-width: 700px) {
+    .playerInfo {
+        font-size: small;
+    }
+}
 @media (max-width: 1500px) {
     .playerInfo {
         width: 500px;
+        font-size: small;
+        height: 60%;
     }
-    .bestGamesc{
-        width: 450px;
+    .bestGames{
+        width: 500px;
+    }
+    .achivments {
+        width: 500px;
     }
 }
 @media (max-width: 1300px) {
@@ -45,9 +79,16 @@
         max-width: 500px;
         width: 100%;
     }
-    
-    .bestGames {
+    .okvirBGAC {
         max-width: 500px;
+        width: 100%;
+    }
+    .achivments {
+        width: 100%;
+    }
+
+    .bestGames {
+        
         margin-top: 10px;
         width: 100%;
     }
@@ -73,8 +114,8 @@
 }
 .avatar {
     margin-left: 40px;
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
     border-radius: 10px;
     background-color: white;
 }

@@ -103,10 +103,14 @@ class App {
             if(!this.load) {
                 this.moves = 0;
             }
+            let localload = this.load;
             this.load = false;
             function saveGame() {
                 let gv = container.element;
-                let name = prompt("Unesite ime igre");
+                let name;
+                
+                
+                if(!localload) { name = prompt("Unesite ime igre"); }
                 
             
                 
@@ -116,10 +120,14 @@ class App {
                         board+= gv.Game.currentBoard.boardMatrix[i][j]
                     }
                 }
-                
-                fetch(`https://localhost:5001/Game/AddGame/${ptr.gameState}/${ptr.gameDifficulty}/${board}/${ptr.User.id}/${name}/${ptr.moves}`,
-                {method: "POST"}).
-                then(rsp=>console.log(rsp.status));
+                if(!localload) {
+                    fetch(`https://localhost:5001/Game/AddGame/${ptr.gameState}/${ptr.gameDifficulty}/${board}/${ptr.User.id}/${name}/${ptr.moves}`,
+                    {method: "POST"}).
+                    then(rsp=>console.log(rsp.status));
+                }
+                else {
+                    fetch(`https://localhost:5001/Game/Update/${ptr.gameId}/${board}`,{method: "PUT"});
+                }
             }
         }
         else {

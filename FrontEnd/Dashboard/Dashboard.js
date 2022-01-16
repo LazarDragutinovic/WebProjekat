@@ -1,3 +1,4 @@
+import Achivment from "../Achivment.js";
 
 
 
@@ -16,9 +17,15 @@ export default class Dashboard {
         playerInfo.className = "playerInfo";
         dashboard.appendChild(playerInfo);
         let bestGames = document.createElement("div");
+        let okvirBGAC = document.createElement("div");
+        let achivments = document.createElement("table");
+        achivments.className = "achivments";
         bestGames.className = "bestGames";
-        dashboard.appendChild(bestGames);
-
+        okvirBGAC.appendChild(bestGames);
+        okvirBGAC.className = 'okvirBGAC';
+        okvirBGAC.appendChild(achivments);
+        dashboard.appendChild(okvirBGAC);
+        
         let header = document.createElement("div");
         header.className = "header";
         let avatarArea = document.createElement("div");
@@ -81,6 +88,21 @@ export default class Dashboard {
             document.getElementById("Average Figures Taken").innerHTML += data.averageFiguresTaken;
             document.getElementById("Average Figures Lost").innerHTML += data.averageFiguresLost;
         });
+
+        fetch(`https://localhost:5001/Achivments/GetAchivments/${this.parrent.User.id}`)
+        .then(resp=>{
+            if(resp.ok) {
+                resp.json().then(data=>{
+                    data.forEach(achv=> {
+                        let achivment = new Achivment(achv.id, achv.name, achv.tier,achv.compleated);
+                        achivment.render(achivments);
+                    })
+                })
+            }
+            else{
+                resp.json().then(msg=>alert(msg.message));
+            }
+        })
         return dashboard;
 
 

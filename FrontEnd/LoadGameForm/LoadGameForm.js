@@ -46,6 +46,7 @@ export default class LoadGameForm {
                                 e.preventDefault();
                                ptr.load = true;
                                ptr.state = 5;
+                               ptr.gameId = game.id;
                                ptr.gameDifficulty = game.difficulty;
                                ptr.gameBoard = game.board;
                                ptr.moves = game.moves;

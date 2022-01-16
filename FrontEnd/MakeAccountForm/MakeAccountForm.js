@@ -96,11 +96,18 @@ export default class makeAccountForm {
                 body: JSON.stringify({
                     username: usernameEl.value,
                     password: passwordEl.value,
-                    passwordText: passwordTextEl.value
+                    passwordText: passwordTextEl.value,
+                    achivments: [
+                        {name: "Win 5 games on Hard Difficulty.", tier: "three", compleated:0},
+                        {name: "Win 5 games on Insane Difficulty.", tier: "four", compleated:0},
+                        {name: "Win 5 games on Medium Difficulty.", tier: "two", compleated:0},
+                        {name: "Win 5 games on Easy Difficulty.", tier: "one", compleated:0}
+                    ]
                 })
             }).then(resp => {
                         if(resp.ok) {
                             resp.json().then(user=> {
+                                
                                 ptr.User = user;
                                 ptr.state = 2;
                                 ptr.rerender();

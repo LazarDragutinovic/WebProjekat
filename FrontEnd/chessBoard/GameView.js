@@ -32,8 +32,41 @@ function makeTriggerChoseMove(shadowBoard,game,gameView,i,j,x,y) {
                 method: "POST"
                 }).then(resp => {
                     if (resp.ok) {
-                        GameView.parrent.state = 2;
-                        GameView.parrent.rerender();
+                        fetch(`https://localhost:5001/Achivments/GetAchivments/${gameView.parrent.User.id}`).then(resp=>{
+                            if(resp.ok) {
+                                resp.json().then(achvs=>{
+                                    achvs.forEach(ach=> {
+                                        if(gameView.parrent.gameDifficulty == 3 && ach.tier == "three" && ach.compleated < 100) {
+                                            fetch(`https://localhost:5001/Achivments/UpdateAchivment/${ach.id}/${ach.compleated + 20}`,{method: "PUT"})
+                                            .then(resp=>{
+                                                GameView.parrent.state = 2;
+                                                GameView.parrent.rerender();
+                                            });        
+                                        }
+                                        else if(gameView.parrent.gameDifficulty == 2 && ach.tier == "two" && ach.compleated < 100) {
+                                            fetch(`https://localhost:5001/Achivments/UpdateAchivment/${ach.id}/${ach.compleated + 20}`,{method: "PUT"})
+                                            .then(resp=>{
+                                                GameView.parrent.state = 2;
+                                                GameView.parrent.rerender();
+                                            });
+                                        }
+                                        else if (gameView.parrent.gameDifficulty == 1 && ach.tier == "one" && ach.compleated < 100) {
+                                            fetch(`https://localhost:5001/Achivments/UpdateAchivment/${ach.id}/${ach.compleated + 20}`,{method: "PUT"})
+                                            .then(resp=>{
+                                                GameView.parrent.state = 2;
+                                                GameView.parrent.rerender();
+                                            });
+                                        }
+                                    })
+                                    
+                                    
+                                })    
+                            }
+                            else {
+
+                            }
+                        })
+                        
                     }
                     else {
                         alert("Nije sacuvana igra.")

@@ -43,7 +43,7 @@ namespace BackEnd.Controllers
                 return BadRequest();
             }
             if(user.Password.Length < 8) return BadRequest("Losa Lozinka");
-            
+                        
             context.Users.Add(user);
             await context.SaveChangesAsync();
             return Ok(new {Id = user.ID, Username = user.Username});

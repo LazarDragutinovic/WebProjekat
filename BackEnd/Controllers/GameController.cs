@@ -74,7 +74,15 @@ namespace BackEnd.Controllers {
             }
         }
 
-
+        [HttpPut]
+        [Route("Update/{gameId}/{board}")]
+        public async Task<ActionResult> Update(int gameId, string board) {
+            var game = context.Games.Find(gameId);
+            if(game == null) return BadRequest(new {Message = "Nema te partije"});
+            game.Board = board;
+            await context.SaveChangesAsync();
+            return Ok();
+        }
         [HttpGet]
         [Route("GetStats/{userId}")]
         public ActionResult GetStats(int userId) {
@@ -99,6 +107,8 @@ namespace BackEnd.Controllers {
                             if (c != 'E' && char.IsUpper(c)) ftaken--;
                             else if (c != 'E' && char.IsLower(c)) flost--;
                         }
+                        avrgftaken += ftaken;
+                        avrgflost += flost;
                     }
                     else if(g.state == 'l') {
                         totalGamse++;
@@ -107,19 +117,20 @@ namespace BackEnd.Controllers {
                             if (c != 'E' && char.IsUpper(c)) ftaken--;
                             else if (c != 'E' && char.IsLower(c)) flost--;
                         }
-
+                        avrgftaken += ftaken;
+                        avrgflost += flost;
                     }
-                    avrgftaken += ftaken;
-                    avrgflost += flost;
+                    
                 }
-                
+                double winrate = 0;;
                 if (user.Games.Count() != 0) {
                     avrgmoves /= user.Games.Count();
                     avrgflost /= user.Games.Count();
                     avrgftaken /= user.Games.Count();
+                    winrate = totalGamse == 0 ? 0 : (wins * 100.0)/ totalGamse;
                 }
-                double winrate = (wins * 100.0)/ totalGamse;
-                return Ok(new {Winrate = winrate, TotalGamse = totalGamse, Wins=wins, Loses = totalGamse - wins, AverageMoves = avrgmoves, AverageFiguresTaken = avrgftaken, AverageFiguresLost= avrgflost});
+                
+                return Ok(new {Winrate= winrate, TotalGamse= totalGamse, Wins= wins, Loses= totalGamse - wins, AverageMoves= avrgmoves, AverageFiguresTaken= avrgftaken, AverageFiguresLost= avrgflost});
             }
         }
 

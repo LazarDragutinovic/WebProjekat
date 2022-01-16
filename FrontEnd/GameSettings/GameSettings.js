@@ -23,6 +23,12 @@ export default class GameSettings {
             "Bring it on",
             "Please have mercy"
         ];
+        let maping = {
+            "Don't hurt me": 1,
+            "Normal experience" : 2,
+            "Bring it on": 3,
+            "Please have mercy" : 3
+        }
 
         let radioArea = document.createElement("div");
         radioArea.className = "radioArea";
@@ -58,6 +64,9 @@ export default class GameSettings {
         letsgo.onclick = (e)=>{
             e.preventDefault();
             ptr.state = 5;
+            ptr.gameState = "u";
+            ptr.gameDifficulty = maping[document.querySelector("input[type='radio']:checked").value];
+            console.log(maping[document.querySelector("input[type='radio']:checked").value]);
             ptr.rerender();
         }
         abort.onclick = (e)=>{

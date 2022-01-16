@@ -3,7 +3,7 @@ import Board from "./Board.js";
 
 export default class Game {
 
-    constructor() {
+    constructor(board) {
         let defaultBoardMatrix = [['R','N','B','Q','K','B','N','R'],
                                   ['P','P','P','P','P','P','P','P'],
                                   ['E','E','E','E','E','E','E','E'],
@@ -13,11 +13,25 @@ export default class Game {
                                   ['p','p','p','p','p','p','p','p'],
                                   ['r','n','b','q','k','b','n','r']
                                 ];
-        this.difficulty = 4;
-        this.currentBoard = new Board(defaultBoardMatrix);
+        
+        if(board != null) {
+            let boardMatrix = [];
+            for(let i = 0; i < 8; i++) {
+                boardMatrix.push([]);
+                for (let j = 0; j < 8;j++) {
+                    boardMatrix[i].push(board[i*8 + j]);
+                }
+            }
+            this.currentBoard = new Board(boardMatrix);
+        }
+        else {
+            this.currentBoard = new Board(defaultBoardMatrix);
+        }
         this.prevBoards = [];
 
     }
+
+    
 
     Undo() {
         let prevBoard = this.prevBoards.pop();

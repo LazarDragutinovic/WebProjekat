@@ -16,10 +16,11 @@ namespace Models
         public int ID { get; set; }
         public char state { get; set; }
         public int difficulty { get; set; }
-        [MaxLength(60)]
-        [Required]
+        
 
         public int Moves { get; set; }
+        [MaxLength(60)]
+        [Required]
         public string Name { get; set; }
         [MaxLength(64)]
         public string Board { get; set; }

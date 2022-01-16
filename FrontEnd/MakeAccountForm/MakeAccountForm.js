@@ -36,10 +36,11 @@ export default class makeAccountForm {
             poljaDiv.appendChild(polje);
             let inp = document.createElement("input");
             inp.type = types[indx];
+            inp.id = ime;
             inp.className = "inp";
             inputs.appendChild(inp);
         })
-
+        
 
 
         inputArea.appendChild(poljaDiv);
@@ -53,6 +54,7 @@ export default class makeAccountForm {
         QArea.appendChild(questionTitle);
 
         let textArea = document.createElement("textarea");
+        textArea.id = "PQuestion";
         textArea.rows = 4;
         textArea.cols = 26;
         
@@ -71,8 +73,48 @@ export default class makeAccountForm {
         let ptr = this.parrent;
         buttonFinish.onclick = (e)=> {
             e.preventDefault();
-            ptr.state = 2;
-            ptr.rerender();
+            let usernameEl = document.getElementById("Username");
+            let passwordEl = document.getElementById("Password");
+            let confirmPasswordEl = document.getElementById("Confirm-Password");
+            let passwordTextEl = document.getElementById("PQuestion");
+            if(usernameEl.value.length < 10) {
+                alert("Unesite korisnicko ime koje je bar 10 karaktera.")
+                return;
+            }
+            if(passwordEl.value.length < 10) {
+                alert("Unesite lozinku koja je barem 10 karaktera");
+                return;
+            }
+            if(passwordEl.value != confirmPasswordEl.value) {
+                alert("Lozinke vam se ne poklapaju.");
+                return;
+            }
+            fetch("https://localhost:5001/User/AddUser", {method: "POST",
+                headers : {
+                    "Content-type" : "application/json"
+                },
+                body: JSON.stringify({
+                    username: usernameEl.value,
+                    password: passwordEl.value,
+                    passwordText: passwordTextEl.value
+                })
+            }).then(resp => {
+                        if(resp.ok) {
+                            resp.json().then(user=> {
+                                ptr.User = user;
+                                ptr.state = 2;
+                                ptr.rerender();
+                            }
+                            );
+                        }
+                        else {
+                            resp.json().then(msg =>{
+                                alert(msg.message);
+                            })
+                        }
+                    })
+            .catch(error=>console.log(error))
+            
         }
         buttonCancel.onclick = (e)=>{
             e.preventDefault();
@@ -84,7 +126,9 @@ export default class makeAccountForm {
         formControls.appendChild(buttonCancel);
 
         form.appendChild(formControls);
-
+        setTimeout(()=> {
+            form.classList.add("makeAccountFormTransition");
+        }, 250);
         return form;
     }
 }

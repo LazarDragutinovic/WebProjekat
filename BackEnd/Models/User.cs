@@ -3,10 +3,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Models {
-
-
-    public class User {
+namespace Models
+{
+    
+    public class User
+    {
 
         
 
@@ -22,7 +23,7 @@ namespace Models {
         [MaxLength(180)]
         [Required]
         public string PasswordText { get; set; }
-
+        public List<Achivment> Achivments { get; set; }
         public virtual List<Game> Games {get;set;}
     }
 }

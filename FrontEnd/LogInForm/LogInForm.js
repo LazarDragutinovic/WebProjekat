@@ -1,3 +1,4 @@
+import User from "../User.js";
 
 
 export default class LogInForm {
@@ -9,6 +10,7 @@ export default class LogInForm {
     render() {
         let form = document.createElement("form");
         let title = document.createElement("h1");
+        form.className = "loginForm";
         title.innerHTML = "Log In";
         title.className = "title";
         form.appendChild(title);
@@ -33,6 +35,7 @@ export default class LogInForm {
             let inp = document.createElement("input");
             inp.type = types[index];
             inp.name = polje;
+            inp.id = polje;
             inp.className = "inp"
             inputs.appendChild(inp);
         })
@@ -46,8 +49,40 @@ export default class LogInForm {
         let ptr = this.parrent;
         loginButton.onclick = (e)=> {
             e.preventDefault();
-            ptr.state = 2;
-            ptr.rerender();
+            let username = document.getElementById("Username");
+            let password = document.getElementById("Password");
+            
+            if(username.value.length == 0) {
+             
+                alert("Unesite korisnicko ime.")
+                return;
+            }
+            if(password.value.length == 0) {
+                alert("Unesite lozinku.")
+                return;
+            }
+            fetch("https://localhost:5001/User/Login/" + username.value + "/" + password.value)
+            .then(resp => {
+                if(resp.ok) {
+                    resp.json().then(user => {
+                        ptr.User = new User(user.id, user.username, user.password);
+                        console.log(user);
+                        ptr.state = 2;
+                        ptr.rerender();
+                    })
+                }
+                else {
+                 resp.json().then(message=>alert(message.message));   
+                }
+            })
+            // if(ptr.repo == username.value && ptr.pass == password.value) {
+            //     ptr.state = 2;
+                
+            //     ptr.rerender();
+            // }
+            // else {
+            //     alert("Pogresni username ili lozinka.");
+            // }
         }
         loginButton.textContent = "_LOGIN";
         loginButton.className = "loginButton";
@@ -58,8 +93,19 @@ export default class LogInForm {
         let makeAccountArea = document.createElement("p");
         makeAccountArea.className = "makeAccountArea";
         makeAccountArea.innerHTML = "You don't have account.Make one now!!!<br><span>Click here!!!</span>";
-        form.appendChild(makeAccountArea);       
         
+        makeAccountArea.onclick = function() {
+            document.getElementById("loginform").classList.remove("loginFormTransition");
+            setTimeout(() => {
+                ptr.state = 3;
+                ptr.rerender();
+            }, 1000);
+            
+        }
+        form.appendChild(makeAccountArea);       
+        setTimeout(() =>{
+            form.classList.add("loginFormTransition")
+        },250);       
         return form;
     }
 }

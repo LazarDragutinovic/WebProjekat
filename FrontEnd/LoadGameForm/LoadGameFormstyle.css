@@ -1,0 +1,21 @@
+.LoadGameForm {
+    height: 55vh;
+    width: 90%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 10px black;
+    background-color: rgb(206, 204, 204);
+}
+.LoadGameForm tr {
+    margin-top: 60px;
+    width: 100%;
+}
+.LoadGameForm tr td,th {
+    width: 25%;
+    text-align: center;
+    color: rgb(96, 139, 189);
+    font-size: large;
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+}

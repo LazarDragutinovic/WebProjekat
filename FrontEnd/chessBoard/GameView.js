@@ -13,9 +13,33 @@ function makeTriggerChoseMove(shadowBoard,game,gameView,i,j,x,y) {
         GamePtr.currentBoard.boardMatrix[x][y] = "E";
         //let board = document.getElementById("board");
         //boardArea.removeChild(board);
+        GameView.parrent.moves++;
         GameView.rerender();
         if(gameView.Game.end(gameView.Game.currentBoard)) {
             alert("Cestitamo pobedili ste!");
+            if(confirm("Da li zelite da sacuvate igru?")) {
+                let name = prompt("Unesite ime igre");
+    
+                let board = "";
+                for(let i = 0; i < 8 ; i++) {
+                    for(let j = 0; j < 8; j++) {
+                        board += GamePtr.currentBoard.boardMatrix[i][j];
+
+                    }
+                }
+                fetch(`https://localhost:5001/Game/AddGame/w/${GameView.parrent.gameDifficulty}/${board}/${GameView.parrent.User.id}/${name}/${GameView.parrent.moves}`, {
+
+                method: "POST"
+                }).then(resp => {
+                    if (resp.ok) {
+                        GameView.parrent.state = 2;
+                        GameView.parrent.rerender();
+                    }
+                    else {
+                        alert("Nije sacuvana igra.")
+                    }
+                })
+            }
         }
         else {
             gameView.MakeMove();
@@ -35,10 +59,11 @@ function makeTriggerMakeMoves(i,j,gameView) {
 
 export default class GameView {
 
-    constructor() {
-        this.Game = new Game();
+    constructor(parrent, board) {
+        this.Game = new Game(board);
         console.log(this.Game.difficulty);
-        this.hintBuffer = [];        
+        this.hintBuffer = [];
+        this.parrent = parrent;        
     }
 
     makeXY(x, y) {
@@ -173,6 +198,7 @@ export default class GameView {
         boardArea.appendChild(board); 
     }
     rerender() {
+        if(this.Game.end(this.Game.currentBoard)) return;
         let board = document.getElementById("board");
         let boardArea = document.getElementById("boardArea");
         boardArea.removeChild(board);
@@ -248,13 +274,13 @@ export default class GameView {
 
      MakeMove() {
          this.Game.MakeChildren("black",this.Game.currentBoard);
-         if(this.Game.difficulty > 1) {
+         if(this.parrent.gameDifficulty > 1) {
             this.Game.currentBoard.children.forEach(child=> {
                 this.Game.MakeChildren("white",child);
-                if(this.Game.difficulty > 2) {
+                if(this.parrent.gameDifficulty > 2) {
                     child.children.forEach(child1=>{
                         this.Game.MakeChildren("black", child1);
-                 
+                        
                  });
                 }
             });
@@ -272,7 +298,32 @@ export default class GameView {
             this.rerender(boardArea);
          },500);
          
-         if(this.Game.end(this.Game.currentBoard))
+         if(this.Game.end(this.Game.currentBoard)) {
             alert("Pobedio je kompljuter");
+            if(confirm("Da li zelite da sacuvate igru?")) {
+                let name = prompt("Unesite ime igre:");
+                let board = ""
+                for(let i = 0; i < 8; i++) {
+                    for(let j = 0 ; j < 8 ; j++) {
+                        board += this.Game.currentBoard.boardMatrix[i][j];
+                    }
+                }
+                let game = {
+                    state: "l",
+                    difficulty: this.parrent.gameDifficulty,
+                    board: board,
+                    name: name,
+                    user: this.parrent.User.id 
+                }
+                let ptr = this.parrent;
+                fetch(`https://localhost:5001/Game/AddGame/${game.state}/${game.difficulty}/${game.board}/${game.user}/${game.name}/${ptr.moves}`
+                ,{method: "POST"})
+                .then(resp => {
+                    ptr.state = 2;
+                    ptr.rerender();
+                });
+            }
+        
+         }
      }
 }

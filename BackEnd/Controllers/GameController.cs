@@ -18,6 +18,26 @@ namespace BackEnd.Controllers {
             context = Context;
         }
 
+        public static int sort(Game g1, Game g2) {
+            if(g1.Moves < g2.Moves) return 1;
+            else if(g1.Moves == g2.Moves) return 0;
+            else return -1;
+        }
+        [HttpGet]
+        [Route("GetBestGames/{userId}")]
+        public async Task<ActionResult> GetBestGames(int userId) {
+            var games = await context.Games.Where(game => game.User.ID == userId && game.state == 'w').ToListAsync();
+            for(int i = 0 ; i < games.Count()-1;i++) {
+                for(int j = i+1; j < games.Count(); j++) {
+                    if(sort(games[i],games[j]) < 0) {
+                        var pom = games[i];
+                        games[i] = games[j];
+                        games[j] = pom;
+                    }
+                }
+            }
+            return Ok(games);
+        }
         [HttpPost]
         [Route("AddGame/{state}/{difficulty}/{Board}/{userId}/{name}/{moves}")]
         public async Task<ActionResult> Dodaj(string state, int difficulty, string Board,int userId,string name, int moves) {

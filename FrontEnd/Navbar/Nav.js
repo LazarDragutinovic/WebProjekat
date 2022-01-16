@@ -6,7 +6,7 @@ export default class Nav {
     constructor(dugmici) {
         this.dugmici = dugmici;
     }
-
+    
     render(root) {
         let nav = document.createElement('nav');
         
@@ -27,8 +27,27 @@ export default class Nav {
         nav.appendChild(okvir);
 
         let okvirZaKontrole = document.createElement("div");
+        okvirZaKontrole.classList.add("okvirZaKontrole");
+        let expandButton = document.createElement("div");
+        expandButton.className = "expandButton";
+
+        let span;
+        for (let i = 0; i < 3 ;i++) {
+            span = document.createElement('span');
+            span.className = "hambEntry";
+            expandButton.appendChild(span);
+        } 
+        let sidebar = document.createElement("div");
+        sidebar.classList.add("sidebar");
+
+        expandButton.onclick = () => {
+            sidebar.classList.toggle("sidebar-active");
+        }
+        document.body.appendChild(sidebar);
+        okvir.appendChild(expandButton);
         this.dugmici.forEach(dugme => {
-           dugme.render(okvirZaKontrole); 
+           dugme.render(okvirZaKontrole);
+           dugme.render(sidebar); 
         });
 
         okvir.appendChild(okvirZaKontrole);

@@ -341,15 +341,9 @@ export default class GameView {
                         board += this.Game.currentBoard.boardMatrix[i][j];
                     }
                 }
-                let game = {
-                    state: "l",
-                    difficulty: this.parrent.gameDifficulty,
-                    board: board,
-                    name: name,
-                    user: this.parrent.User.id 
-                }
+        
                 let ptr = this.parrent;
-                fetch(`https://localhost:5001/Game/AddGame/${game.state}/${game.difficulty}/${game.board}/${game.user}/${game.name}/${ptr.moves}`
+                fetch(`https://localhost:5001/Game/AddGame/l/${this.parrent.gameDifficulty}/${board}/${this.parrent.User.id }/${name}/${ptr.moves}`
                 ,{method: "POST"})
                 .then(resp => {
                     ptr.state = 2;

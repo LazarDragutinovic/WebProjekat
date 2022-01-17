@@ -72,10 +72,26 @@ class App {
                 ptr.state = 6;
                 ptr.rerender();
             }
+            function delUser() {
+                if(confirm("Da li stvarno zelite da obrisete nalog")) {
+                fetch(`https://localhost:5001/User/Delete/${ptr.User.id}`,{method:"DELETE"})
+                .then(resp=>{
+                    if(resp.ok) {
+                        alert("Uspesno obrisan korisnik")
+                        ptr.state = 1;
+                        ptr.rerender();
+                    }
+                    else {
+                        resp.json().then(msg=>alert(msg.message));
+                    }
+                })
+                }
+            }
             let startGame = new Button("_START",goToNewGame,"white","rgb(0,101,145)");
             let loadGame = new Button("_LOAD",goToLoad,"white","gray");
             let logoutBtn = new Button("_LOGOUT",goToLogin,"white","red");
-            nav = new Nav([startGame,loadGame,logoutBtn]);
+            let delBtn = new Button("_DELETE", delUser,"white","red");
+            nav = new Nav([startGame,loadGame,logoutBtn,delBtn]);
             container.element = new Dashboard(this);
         }
         else if(this.state == 3) {

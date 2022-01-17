@@ -19,7 +19,30 @@ namespace BackEnd.Controllers
             context = Context;
         }
        
-        
+        [HttpGet]
+        [Route("Password/{username}")]
+        public ActionResult PasswordText(string username) {
+            User user = context.Users.Where(u=>u.Username == username).FirstOrDefault();
+            if(user == null) return BadRequest(new {Message = "Nema tog korisnika"});
+            return Ok(new {Message=user.PasswordText});
+        }
+
+        [HttpDelete]
+        [Route("Delete/{userId}")]
+        public ActionResult Delete(int userId) {
+            
+            try {
+            User user = context.Users.Include(u=>u.Games).Include(u=>u.Achivments).Where(user=> user.ID == userId).FirstOrDefault();
+            if (user == null) return BadRequest(new {Message="No user to be deleted"});
+            
+            context.Remove(user);
+            context.SaveChanges();
+            return Ok(new {Message="User deleted successfully"});
+            }
+            catch(Exception e) {
+                return BadRequest(new {Message = e.Message});
+            }
+        }
         [HttpGet]
         [Route("Login/{username}/{password}")]
         public ActionResult Login(string username, string password) {

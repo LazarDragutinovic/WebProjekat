@@ -53,6 +53,18 @@
     background-color: rgb(1, 95, 158);
 }
 
+.passButton {
+    border-radius: 10px;
+    width: 220px;
+    height: 40px;
+    margin-top: 15px;
+    margin-left: 40px;
+    color: white;
+    font-size: 1.5em;
+    font-weight: 900;
+    background-color: rgb(1, 95, 158);
+}
+
 .polja .polje {
     font-weight: 800;
     font-size: 1.5em;

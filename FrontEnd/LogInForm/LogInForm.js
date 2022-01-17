@@ -86,8 +86,25 @@ export default class LogInForm {
         }
         loginButton.textContent = "_LOGIN";
         loginButton.className = "loginButton";
-
+        let ptBtn = document.createElement("button");
+        ptBtn.innerHTML = "_PasswordText"
+        ptBtn.className = "passButton";
+        ptBtn.onclick = (e)=>{
+            e.preventDefault();
+            let username = document.getElementById("Username");
+            if(username.value.length == 0) {
+                alert("Nema nikakvog username-a");
+                return;
+            }            
+            fetch(`https://localhost:5001/User/Password/${username.value}`)
+            .then(resp=>{
+                resp.json().then(msg=>alert(msg.message));
+            })
+        }
+        
         buttonArea.appendChild(loginButton);
+        buttonArea.appendChild(ptBtn);
+        
         form.appendChild(buttonArea);
 
         let makeAccountArea = document.createElement("p");

@@ -13,7 +13,7 @@ namespace Models {
         [MaxLength]
         public string Name { get; set; }
         public string Tier { get; set; }
-        public DateTime DateOfAchivment { get; set; }
+        
 
         [Range(0,100)]
         public int Compleated {get;set;}
